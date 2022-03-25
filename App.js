@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   StyleSheet,
@@ -7,7 +7,7 @@ import {
   Image,
   Dimensions,
   StatusBar,
-  Animated,
+  ScrollView,
   TouchableOpacity,
   ImageBackground,
 } from 'react-native';
@@ -16,14 +16,14 @@ const App = () => {
   return (
     <SafeAreaView style={styles.container}>
       <HeaderBar />
-      <Title />
-      <Carrousel />
+      <Events />
+      <Footer />
     </SafeAreaView>
   );
 };
 
 const HeaderBar = () => {
-  const HeaderEffect = () => {
+  const HeaderBackground = () => {
     return (
       <Image
         resizeMode="cover"
@@ -36,224 +36,209 @@ const HeaderBar = () => {
     return (
       <>
         <BigSpace />
+        <Space />
         <View style={[styles.row, styles.centerItems, styles.centerSelf]}>
-          <Text style={[styles.text]}>novelty</Text>
+          <Text style={[styles.title]}>novelty</Text>
+          <HorizontalSpace />
+          <Image
+            resizeMode="contain"
+            source={require('./assets/noveltyLibary/NoveltyCoin.png')}
+            style={[styles.icons]}
+          />
+          <HorizontalSpace />
+          <Text style={[styles.lightText]}>620 $NC</Text>
         </View>
       </>
     );
   };
-  const Title = () => {
+  const SubHeader = () => {
     return (
-      <View style={[styles.headerTitleStyle]}>
-        <Image
-          resizeMode="contain"
-          source={require('./assets/noveltyLibary/Vector.png')}
-          style={[styles.icons]}
-        />
-        <Text style={[styles.text, styles.bigText]}>Recommendations</Text>
-        <Image
-          resizeMode="contain"
-          source={require('./assets/noveltyLibary/Ellipse.png')}
-          style={[styles.iconsBig]}
-        />
-      </View>
+      <>
+        <Space />
+        <View style={[styles.headerTitleStyle]}>
+          <Image
+            resizeMode="contain"
+            opacity={0}
+            source={require('./assets/noveltyLibary/Notification.png')}
+            style={[styles.notificationIcon]}
+          />
+          <Text style={[styles.text, styles.bigText]}>Events</Text>
+          <Image
+            resizeMode="contain"
+            source={require('./assets/noveltyLibary/Notification.png')}
+            style={[styles.notificationIcon]}
+          />
+        </View>
+      </>
     );
   };
   return (
     <View>
-      <HeaderEffect />
+      <HeaderBackground />
       <StatusBar translucent backgroundColor="transparent" />
       <SafeAreaView style={[styles.centerSelf]}>
         <Header />
-        <Title />
-        <Space />
+        <SubHeader />
       </SafeAreaView>
     </View>
   );
 };
-const Title = () => (
-  <View style={styles.centerAll}>
-    <Text style={[styles.text]}>You and Jessoco attended</Text>
-    <Text style={[styles.text]}>three events together.</Text>
-    <Text style={[styles.text]}>Do you want to connect?</Text>
-  </View>
-);
 
-const Slides = new Array(5).fill({
-  title: 'Maren Mango',
-  details: 'Untitled Journal',
-  details2: 'ArtX',
-  interests: '🚲 bike rides',
-  interests1: '🏖 travel',
-  interests2: '⛳️ golf',
-  interests3: '🎧 music',
-  interests4: '🎲 games',
-  image: require('./assets/noveltyLibary/MarenMango.png'),
-  location: ['San Francisco, CA, USA'],
-  away: ['15 mi away'],
-});
-const Carrousel = () => {
-  const [data, setData] = React.useState(Slides);
-  const scrollX = React.useRef(new Animated.Value(0)).current;
-
+const Events = () => {
+  const [toggle, setToggle] = useState(true);
+  const toggleFunction = () => {
+    setToggle(!toggle);
+  };
+  const EventCards = () => {
+    return (
+      <>
+        <View style={[styles.row, styles.spacing]}>
+          <SafeAreaView style={[styles.photoCard]}>
+            <Image
+              resizeMode="cover"
+              source={require('./assets/noveltyLibary/JessocoMain.png')}
+              style={[styles.image]}
+            />
+          </SafeAreaView>
+          <SafeAreaView style={[styles.eventCard]}>
+            <View style={[styles.row, styles.between]}>
+              <View style={[styles.row, styles.centerItems]}>
+                <Image
+                  resizeMode="cover"
+                  source={require('./assets/noveltyLibary/Jessoco.png')}
+                  style={[styles.icons24]}
+                />
+                <HorizontalSpace />
+                <Text style={styles.text}>Jessoco</Text>
+              </View>
+              <View style={[styles.row, styles.centerItems]}>
+                <Image
+                  resizeMode="cover"
+                  source={require('./assets/noveltyLibary/HeartVector.png')}
+                  style={[styles.icons15]}
+                />
+                <HorizontalSpace />
+                <Image
+                  resizeMode="cover"
+                  source={require('./assets/noveltyLibary/Upload.png')}
+                  style={[styles.icons15]}
+                />
+              </View>
+            </View>
+            <View>
+              <Text style={styles.text}>Roller Skating in the park</Text>
+              <Text style={styles.grayText}>San Francisco, CA, USA</Text>
+            </View>
+            <View style={[styles.row, styles.centerItems]}>
+              <Image
+                resizeMode="cover"
+                source={require('./assets/noveltyLibary/CheckVector.png')}
+                style={[styles.icons15]}
+              />
+              <HorizontalSpace />
+              <Text style={styles.grayText}>1/1 Going</Text>
+              <HorizontalSpace />
+              <Image
+                resizeMode="cover"
+                source={require('./assets/noveltyLibary/AddUser.png')}
+                style={[styles.icons15]}
+              />
+              <HorizontalSpace />
+              <Text style={styles.grayText}>5 Requests</Text>
+            </View>
+            <View style={[styles.row, styles.centerItems]}>
+              <View style={styles.buttonContainer}>
+                <TouchableOpacity style={[styles.button]}>
+                  <Text style={[styles.blackText, styles.centerSelf]}>
+                    April 27, 2021 at 09:00 PM
+                  </Text>
+                </TouchableOpacity>
+              </View>
+              <HorizontalSpace />
+              <View style={[styles.row, styles.centerItems]}>
+                <View style={styles.buttonContainer}>
+                  <TouchableOpacity style={[styles.button]}>
+                    <Text style={[styles.blackText, styles.centerSelf]}>
+                      Free
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
+          </SafeAreaView>
+        </View>
+        <Space />
+      </>
+    );
+  };
   return (
     <>
-      <SafeAreaView>
-        <Animated.FlatList
-          data={data}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          snapToInterval={WIDTH * 0.88}
-          scrollEventThrottle={16}
-          contentContainerStyle={{padding: 10}}
-          keyExtractor={(_, index) => String(index)}
-          onScroll={Animated.event(
-            [{nativeEvent: {contentOffset: {x: scrollX}}}],
-            {useNativeDriver: false},
-          )}
-          renderItem={({item, index}) => {
-            const inputRange = [
-              WIDTH * 0.9 * (index - 1),
-              WIDTH * 0.9 * index,
-              WIDTH * 0.9 * (index + 1),
-            ];
-            const scale = scrollX.interpolate({
-              inputRange,
-              outputRange: [0.95, 1, 0.95],
-            });
-            return (
-              <Animated.View
-                style={[
-                  styles.modalViewContainer,
-                  styles.between,
-                  {
-                    transform: [{scale}],
-                  },
-                ]}>
-                <ImageBackground
-                  source={item.image}
-                  blurRadius={10}
-                  resizeMode="cover"
-                  style={[styles.imageBackground]}
-                />
-                <BigSpace />
-                <Image
-                  source={item.image}
-                  resizeMode="contain"
-                  style={styles.image}
-                />
-                <Space />
-                <Text style={[styles.centerAll, styles.bigText]}>
-                  {item.title}
-                </Text>
-                <Space />
-                <View style={styles.row}>
-                  <TouchableOpacity style={styles.buttonPink}>
-                    <Text style={[styles.centerAll, styles.textLittle]}>
-                      {item.details}
-                    </Text>
-                  </TouchableOpacity>
-                  <HorizontalSpace />
-                  <TouchableOpacity style={styles.buttonPink}>
-                    <Text style={[styles.centerAll, styles.textLittle]}>
-                      {item.details2}
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-                <Space />
-                <View style={[styles.column]}>
-                  <Text style={[styles.centerAll, styles.textLight]}>
-                    {item.away}
-                  </Text>
-                  <Text style={[styles.centerAll, styles.textLight]}>
-                    {item.location}
-                  </Text>
-                  <Space />
-                </View>
-                <Separator />
-                <Space />
-                <Text style={[styles.centerSelf, styles.textLight]}>
-                  5 Same Interests
-                </Text>
-                <Space />
-                <View style={styles.row}>
-                  <TouchableOpacity style={[styles.buttonLittle]}>
-                    <Text style={styles.blackLittleText}>
-                      {[item.interests]}
-                    </Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity style={[styles.buttonLittle]}>
-                    <Text style={styles.blackLittleText}>
-                      {[item.interests1]}
-                    </Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity style={[styles.buttonLittle]}>
-                    <Text style={styles.blackLittleText}>
-                      {[item.interests2]}
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-                <View style={[styles.row]}>
-                  <TouchableOpacity style={[styles.buttonLittle]}>
-                    <Text style={styles.blackLittleText}>
-                      {[item.interests3]}
-                    </Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity style={[styles.buttonLittle]}>
-                    <Text style={styles.blackLittleText}>
-                      {[item.interests4]}
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-                <BigSpace />
-                <View style={[styles.buttonContainer]}>
-                  <TouchableOpacity
-                    style={[styles.button, styles.centerJustify, styles.gray]}
-                    onPress={() => {}}>
-                    <Text style={[styles.text, styles.centerSelf]}>Cancel</Text>
-                  </TouchableOpacity>
-                  <HorizontalSpace />
-                  <TouchableOpacity
-                    style={[styles.button, styles.centerSelf, styles.row]}
-                    onPress={() => {}}>
-                    <Text style={[styles.blackText, styles.centerSelf]}>
-                      Connect
-                    </Text>
-                    <HorizontalSpace />
-                    <View style={[styles.row, styles.coinBorder]}>
-                      <Text style={[styles.blackText, styles.centerSelf]}>
-                        + 10
-                      </Text>
-                      <Text> </Text>
-                      <Image
-                        source={require('./assets/noveltyLibary/NoveltyCoin.png')}
-                        style={[styles.icons]}
-                      />
-                    </View>
-                  </TouchableOpacity>
-                </View>
-              </Animated.View>
-            );
-          }}
-        />
-      </SafeAreaView>
-      <View style={styles.indicatorContainer}>
-        {Slides.map((item, index) => {
-          const width = scrollX.interpolate({
-            inputRange: [
-              WIDTH * 0.9 * (index - 1),
-              WIDTH * 0.9 * index,
-              WIDTH * 0.9 * (index + 1),
-            ],
-            outputRange: [8, 16, 8],
-            extrapolate: 'clamp',
-          });
-          return (
-            <Animated.View key={index} style={[styles.normalDot, {width}]} />
-          );
-        })}
+      <BigSpace />
+      <View style={[styles.contentContainer]}>
+        <View>
+          <SafeAreaView style={[styles.row, styles.eventBar]}>
+            <View style={styles.eventContToggle}>
+              <Text style={[styles.eventText]}>My</Text>
+            </View>
+            <View style={[styles.eventCont]}>
+              <Text style={[styles.eventText]}>Upcoming</Text>
+            </View>
+            <View style={styles.eventContToggle}>
+              <Text style={[styles.eventText]}>Liked</Text>
+            </View>
+            <View style={styles.eventContToggle}>
+              <Text style={[styles.eventText]}>Past</Text>
+            </View>
+          </SafeAreaView>
+          <BigSpace />
+          <ScrollView>
+            <EventCards />
+          </ScrollView>
+        </View>
       </View>
     </>
+  );
+};
+const Footer = () => {
+  const FooterEffect = () => {
+    return (
+      <Image
+        source={require('./assets/noveltyLibary/footerBackground.png')}
+        style={[styles.footerContainer, styles.absolute]}
+      />
+    );
+  };
+  return (
+    <View style={[styles.footerContainer]}>
+      <FooterEffect />
+      <View style={[styles.footerItems]}>
+        <Image
+          resizeMode="center"
+          source={require('./assets/noveltyLibary/HomeVector.png')}
+          style={[styles.icons24]}
+        />
+        <Image
+          resizeMode="center"
+          source={require('./assets/noveltyLibary/Calendar.png')}
+          style={styles.icons24}
+        />
+        <Image
+          resizeMode="center"
+          source={require('./assets/noveltyLibary/Add.png')}
+          style={styles.iconsBig}
+        />
+        <Image
+          resizeMode="center"
+          source={require('./assets/noveltyLibary/Chat.png')}
+          style={styles.icons24}
+        />
+        <Image
+          resizeMode="center"
+          source={require('./assets/noveltyLibary/UserPic.png')}
+          style={styles.icons24}
+        />
+      </View>
+    </View>
   );
 };
 
@@ -262,14 +247,6 @@ const Space = () => {
 };
 const BigSpace = () => {
   return <View style={styles.bigLine} />;
-};
-const Separator = () => {
-  return (
-    <Image
-      source={require('./assets/noveltyLibary/line.png')}
-      style={styles.line}
-    />
-  );
 };
 const HorizontalSpace = () => {
   return <View style={styles.horizontalSpace} />;
@@ -281,16 +258,7 @@ const HEIGHT = Dimensions.get('screen').height;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'black',
-  },
-  grayBackground: {
-    backgroundColor: 'rgba(25, 25, 27, 0.8)',
-  },
-  gray: {
-    backgroundColor: '#777777',
-  },
-  between: {
-    justifyContent: 'space-between',
+    backgroundColor: '#000',
   },
   headerTitleStyle: {
     justifyContent: 'space-between',
@@ -305,22 +273,50 @@ const styles = StyleSheet.create({
   centerSelf: {
     alignSelf: 'center',
   },
-  textAlign: {
-    width: WIDTH * 0.7,
-  },
-  centerJustify: {
-    justifyContent: 'center',
+  between: {
+    justifyContent: 'space-between',
   },
   icons: {
+    width: WIDTH * 0.045,
+    height: WIDTH * 0.045,
+  },
+  notificationIcon: {
     width: WIDTH * 0.06,
-    height: WIDTH * 0.06,
+    height: WIDTH * 0.065,
+  },
+  iconsHidden: {
+    opacity: 0,
   },
   iconsBig: {
-    width: WIDTH * 0.11,
-    height: HEIGHT * 0.07,
+    width: 41,
+    height: 41,
+  },
+  icons24: {
+    width: 24,
+    height: 24,
+  },
+  icons15: {
+    width: 15,
+    height: 15,
   },
   absolute: {
     position: 'absolute',
+  },
+  contentContainer: {
+    flex: 1,
+    width: WIDTH * 0.9,
+    alignSelf: 'center',
+  },
+  footerContainer: {
+    height: HEIGHT * 0.12,
+    width: WIDTH,
+    justifyContent: 'center',
+  },
+  footerItems: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
+    alignContent: 'center',
   },
   headerEffectContainer: {
     width: WIDTH,
@@ -330,15 +326,6 @@ const styles = StyleSheet.create({
     borderColor: 'red',
     borderWidth: 0.5,
   },
-  centerAll: {
-    alignItems: 'center',
-    alignContent: 'center',
-    alignSelf: 'center',
-    justifyContent: 'center',
-  },
-  width90: {
-    width: WIDTH * 0.9,
-  },
   horizontalSpace: {
     width: WIDTH * 0.025,
   },
@@ -347,36 +334,30 @@ const styles = StyleSheet.create({
     fontSize: WIDTH * 0.04,
     fontFamily: 'Manrope-Bold',
   },
-  textLittle: {
-    color: '#FFFFFF',
-    fontSize: WIDTH * 0.035,
-    fontFamily: 'Manrope-Bold',
-  },
-  textLight: {
-    color: '#D2D2D2',
-    fontSize: WIDTH * 0.03,
-    fontFamily: 'Manrope-Regular',
-  },
   bigText: {
     color: '#FFFFFF',
     fontSize: WIDTH * 0.055,
     fontFamily: 'Manrope-Bold',
   },
+  blackText: {
+    color: '#000',
+    fontSize: WIDTH * 0.03,
+    fontFamily: 'Manrope-Bold',
+  },
+  title: {
+    color: '#FFFFFF',
+    fontSize: WIDTH * 0.03,
+    fontFamily: 'Manrope-Bold',
+  },
   lightText: {
     color: '#FFFFFF',
     fontSize: WIDTH * 0.03,
-    fontFamily: 'Manrope-Light',
-    textAlign: 'center',
+    fontFamily: 'Manrope-Regular',
   },
-  blackText: {
-    color: 'black',
-    fontSize: WIDTH * 0.04,
-    fontFamily: 'Manrope-Bold',
-  },
-  blackLittleText: {
-    color: 'black',
-    fontSize: 12,
-    fontFamily: 'Manrope-Bold',
+  grayText: {
+    color: '#BBBBBB',
+    fontSize: WIDTH * 0.03,
+    fontFamily: 'Manrope-Regular',
   },
   column: {
     flexDirection: 'column',
@@ -394,67 +375,68 @@ const styles = StyleSheet.create({
     marginVertical: HEIGHT * 0.018,
   },
   image: {
-    width: WIDTH * 0.6,
+    width: WIDTH * 0.3,
     height: HEIGHT * 0.2,
+    borderTopLeftRadius: 8,
+    borderBottomLeftRadius: 8,
   },
-  imageBackground: {
-    width: WIDTH * 0.9,
-    height: HEIGHT * 0.65,
-    borderRadius: 30,
-    position: 'absolute',
-    opacity: 0.3,
+  eventText: {
+    textAlign: 'center',
+    color: '#FFFFFF',
+    fontSize: WIDTH * 0.04,
+    fontFamily: 'Manrope-Bold',
+    letterSpacing: -0.8,
   },
-  modalViewContainer: {
-    width: WIDTH * 0.9,
-    height: HEIGHT * 0.65,
-    borderRadius: 20,
+  eventCont: {
+    marginHorizontal: 1,
+    flex: 1,
+    height: 33,
+    backgroundColor: '#333334',
+    borderRadius: 8,
+    justifyContent: 'center',
+  },
+  eventContToggle: {
+    marginHorizontal: 1,
+    flex: 1,
+    height: 33,
     backgroundColor: '#272728',
-    borderColor: '#272728',
-    alignItems: 'center',
-    alignSelf: 'center',
+    borderRadius: 8,
+    justifyContent: 'center',
   },
-  button: {
-    borderRadius: 10,
-    padding: 6,
-    backgroundColor: '#FFFFFF',
-    paddingHorizontal: 15,
-  },
-  buttonPink: {
-    borderRadius: 5,
-    padding: 6,
-    paddingHorizontal: 15,
-    backgroundColor: '#9E11B5',
-  },
-  buttonContainer: {
-    bottom: HEIGHT * 0.02,
-    paddingHorizontal: 10,
-    flexDirection: 'row',
-  },
-  coinBorder: {
-    borderWidth: 5,
-    borderRadius: 5,
-    backgroundColor: '#D2D2D2',
-    borderColor: '#D2D2D2',
-  },
-  buttonLittle: {
-    marginHorizontal: 3,
-    marginBottom: 4,
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    borderRadius: 30,
-    backgroundColor: '#FFFFFF',
-  },
-  normalDot: {
-    height: 6,
-    backgroundColor: 'white',
-    marginHorizontal: HEIGHT * 0.006,
-    borderRadius: 10,
-  },
-  indicatorContainer: {
+  eventBar: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#272728',
+    color: '#272728',
+    width: WIDTH * 0.9,
+    height: 37,
+    borderRadius: 8,
   },
+  eventCard: {
+    justifyContent: 'space-around',
+    padding: WIDTH * 0.02,
+    backgroundColor: '#272728',
+    color: '#272728',
+    width: WIDTH * 0.6,
+    height: HEIGHT * 0.2,
+    borderTopRightRadius: 8,
+    borderBottomRightRadius: 8,
+  },
+  photoCard: {
+    width: WIDTH * 0.3,
+    height: HEIGHT * 0.2,
+  },
+  evenly: {
+    justifyContent: 'space-evenly',
+  },
+  button: {
+    borderRadius: 10,
+    paddingHorizontal: 6,
+    paddingVertical: 4,
+    backgroundColor: '#FFFFFF',
+  },
+  buttonContainer: {},
 });
 
 export default App;
