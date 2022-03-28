@@ -184,7 +184,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#000',
-    opacity: 0.1,
   },
   headerTitleStyle: {
     justifyContent: 'space-between',
@@ -236,6 +235,7 @@ const styles = StyleSheet.create({
     width: WIDTH,
     flexDirection: 'row',
     backgroundColor: '#19191B',
+    opacity: 0.1,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     justifyContent: 'space-around',
@@ -315,16 +315,6 @@ const styles = StyleSheet.create({
   image: {
     width: WIDTH * 0.4,
     height: HEIGHT * 0.2,
-  },
-
-  eventBar: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#19191B',
-    color: '#19191B',
-    width: WIDTH,
-    borderRadius: 8,
   },
   eventCard: {
     justifyContent: 'space-around',
