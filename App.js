@@ -7,17 +7,15 @@ import {
   Image,
   Dimensions,
   StatusBar,
-  ScrollView,
   TouchableOpacity,
-  ImageBackground,
+  Modal,
 } from 'react-native';
 
 const App = () => {
   return (
     <SafeAreaView style={styles.container}>
       <HeaderBar />
-      <Events />
-      <Footer />
+      <CallendarAcces />
     </SafeAreaView>
   );
 };
@@ -84,161 +82,88 @@ const HeaderBar = () => {
   );
 };
 
-const Events = () => {
-  const [toggle, setToggle] = useState(true);
-  const toggleFunction = () => {
-    setToggle(!toggle);
-  };
-  const EventCards = () => {
-    return (
-      <>
-        <View style={[styles.row, styles.spacing]}>
-          <SafeAreaView style={[styles.photoCard]}>
-            <Image
-              resizeMode="cover"
-              source={require('./assets/noveltyLibary/JessocoMain.png')}
-              style={[styles.image]}
-            />
-          </SafeAreaView>
-          <SafeAreaView style={[styles.eventCard]}>
-            <View style={[styles.row, styles.between]}>
-              <View style={[styles.row, styles.centerItems]}>
-                <Image
-                  resizeMode="cover"
-                  source={require('./assets/noveltyLibary/Jessoco.png')}
-                  style={[styles.icons24]}
-                />
-                <HorizontalSpace />
-                <Text style={styles.text}>Jessoco</Text>
-              </View>
-              <View style={[styles.row, styles.centerItems]}>
-                <Image
-                  resizeMode="cover"
-                  source={require('./assets/noveltyLibary/HeartVector.png')}
-                  style={[styles.icons15]}
-                />
-                <HorizontalSpace />
-                <Image
-                  resizeMode="cover"
-                  source={require('./assets/noveltyLibary/Upload.png')}
-                  style={[styles.icons15]}
-                />
-              </View>
-            </View>
-            <View>
-              <Text style={styles.text}>Roller Skating in the park</Text>
-              <Text style={styles.grayText}>San Francisco, CA, USA</Text>
-            </View>
-            <View style={[styles.row, styles.centerItems]}>
-              <Image
-                resizeMode="cover"
-                source={require('./assets/noveltyLibary/CheckVector.png')}
-                style={[styles.icons15]}
-              />
-              <HorizontalSpace />
-              <Text style={styles.grayText}>1/1 Going</Text>
-              <HorizontalSpace />
-              <Image
-                resizeMode="cover"
-                source={require('./assets/noveltyLibary/AddUser.png')}
-                style={[styles.icons15]}
-              />
-              <HorizontalSpace />
-              <Text style={styles.grayText}>5 Requests</Text>
-            </View>
-            <View style={[styles.row, styles.centerItems]}>
-              <View style={styles.buttonContainer}>
-                <TouchableOpacity style={[styles.button]}>
-                  <Text style={[styles.blackText, styles.centerSelf]}>
-                    April 27, 2021 at 09:00 PM
-                  </Text>
-                </TouchableOpacity>
-              </View>
-              <HorizontalSpace />
-              <View style={[styles.row, styles.centerItems]}>
-                <View style={styles.buttonContainer}>
-                  <TouchableOpacity style={[styles.button]}>
-                    <Text style={[styles.blackText, styles.centerSelf]}>
-                      Free
-                    </Text>
+const CallendarAcces = () => {
+  const SharingCalendar = () => {
+    const Radio = () => {
+      const [checked, setChecked] = useState(0);
+      var radio = ['Apple calendar', 'Google calendar'];
+      return (
+        <View style={[styles.row]}>
+          {radio.map((radio, key) => {
+            return (
+              <View style={[styles.btnContainerGray]} key={radio}>
+                {checked === key ? (
+                  <>
+                    <TouchableOpacity style={styles.row}>
+                      <Image
+                        style={styles.icons}
+                        source={require('./assets/noveltyLibary/Active.png')}
+                      />
+                      <HorizontalSpace />
+                      <Text>{radio}</Text>
+                    </TouchableOpacity>
+                  </>
+                ) : (
+                  <TouchableOpacity
+                    onPress={() => {
+                      setChecked(key);
+                    }}
+                    style={styles.row}>
+                    <Image
+                      style={styles.icons}
+                      source={require('./assets/noveltyLibary/Inactive.png')}
+                    />
+                    <HorizontalSpace />
+                    <Text>{radio}</Text>
                   </TouchableOpacity>
-                </View>
+                )}
               </View>
-            </View>
-          </SafeAreaView>
+            );
+          })}
         </View>
-        <Space />
-      </>
+      );
+    };
+    return (
+      <View style={styles.modalBack}>
+        <Modal transparent={true} animationType="slide">
+          <View style={[styles.calendarModal, styles.evenly]}>
+            <Image
+              style={[styles.image, styles.centerSelf]}
+              source={require('./assets/noveltyLibary/Group.png')}
+            />
+            <Text style={[styles.bigText, styles.textCenter]}>
+              Want to share your calendar?
+            </Text>
+            <Text style={[styles.grayText, styles.textCenter]}>
+              Molestie ut id in morbi sagittis, amet amet. Eget pretium in
+              pellentesque adipiscing praesent.
+            </Text>
+            <View style={[styles.row, styles.between]}>
+              <Radio />
+            </View>
+            <TouchableOpacity style={styles.btnContainer}>
+              <Text style={styles.blackText}>Continue</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.btnContainer2}>
+              <Text style={styles.grayText}>Not now</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
+      </View>
     );
   };
   return (
     <>
       <BigSpace />
-      <View style={[styles.contentContainer]}>
-        <View>
-          <SafeAreaView style={[styles.row, styles.eventBar]}>
-            <View style={styles.eventContToggle}>
-              <Text style={[styles.eventText]}>My</Text>
-            </View>
-            <View style={[styles.eventCont]}>
-              <Text style={[styles.eventText]}>Upcoming</Text>
-            </View>
-            <View style={styles.eventContToggle}>
-              <Text style={[styles.eventText]}>Liked</Text>
-            </View>
-            <View style={styles.eventContToggle}>
-              <Text style={[styles.eventText]}>Past</Text>
-            </View>
-          </SafeAreaView>
-          <BigSpace />
-          <ScrollView>
-            <EventCards />
-          </ScrollView>
+      <SafeAreaView style={[styles.contentContainer]}>
+        <View style={styles.eventCard}>
+          <Text style={styles.textRed}>Cancel</Text>
+          <Text style={styles.bigText}>Date & Time</Text>
+          <Text style={styles.textRed}>Save</Text>
         </View>
-      </View>
+      </SafeAreaView>
+      <SharingCalendar />
     </>
-  );
-};
-const Footer = () => {
-  const FooterEffect = () => {
-    return (
-      <Image
-        source={require('./assets/noveltyLibary/footerBackground.png')}
-        style={[styles.footerContainer, styles.absolute]}
-      />
-    );
-  };
-  return (
-    <View style={[styles.footerContainer]}>
-      <FooterEffect />
-      <View style={[styles.footerItems]}>
-        <Image
-          resizeMode="center"
-          source={require('./assets/noveltyLibary/HomeVector.png')}
-          style={[styles.icons24]}
-        />
-        <Image
-          resizeMode="center"
-          source={require('./assets/noveltyLibary/Calendar.png')}
-          style={styles.icons24}
-        />
-        <Image
-          resizeMode="center"
-          source={require('./assets/noveltyLibary/Add.png')}
-          style={styles.iconsBig}
-        />
-        <Image
-          resizeMode="center"
-          source={require('./assets/noveltyLibary/Chat.png')}
-          style={styles.icons24}
-        />
-        <Image
-          resizeMode="center"
-          source={require('./assets/noveltyLibary/UserPic.png')}
-          style={styles.icons24}
-        />
-      </View>
-    </View>
   );
 };
 
@@ -259,6 +184,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#000',
+    opacity: 0.1,
   },
   headerTitleStyle: {
     justifyContent: 'space-between',
@@ -272,6 +198,9 @@ const styles = StyleSheet.create({
   },
   centerSelf: {
     alignSelf: 'center',
+  },
+  textCenter: {
+    textAlign: 'center',
   },
   between: {
     justifyContent: 'space-between',
@@ -304,8 +233,12 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flex: 1,
-    width: WIDTH * 0.9,
-    alignSelf: 'center',
+    width: WIDTH,
+    flexDirection: 'row',
+    backgroundColor: '#19191B',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    justifyContent: 'space-around',
   },
   footerContainer: {
     height: HEIGHT * 0.12,
@@ -331,6 +264,11 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#FFFFFF',
+    fontSize: WIDTH * 0.04,
+    fontFamily: 'Manrope-Bold',
+  },
+  textRed: {
+    color: '#F46538',
     fontSize: WIDTH * 0.04,
     fontFamily: 'Manrope-Bold',
   },
@@ -375,68 +313,71 @@ const styles = StyleSheet.create({
     marginVertical: HEIGHT * 0.018,
   },
   image: {
-    width: WIDTH * 0.3,
+    width: WIDTH * 0.4,
     height: HEIGHT * 0.2,
-    borderTopLeftRadius: 8,
-    borderBottomLeftRadius: 8,
   },
-  eventText: {
-    textAlign: 'center',
-    color: '#FFFFFF',
-    fontSize: WIDTH * 0.04,
-    fontFamily: 'Manrope-Bold',
-    letterSpacing: -0.8,
-  },
-  eventCont: {
-    marginHorizontal: 1,
-    flex: 1,
-    height: 33,
-    backgroundColor: '#333334',
-    borderRadius: 8,
-    justifyContent: 'center',
-  },
-  eventContToggle: {
-    marginHorizontal: 1,
-    flex: 1,
-    height: 33,
-    backgroundColor: '#272728',
-    borderRadius: 8,
-    justifyContent: 'center',
-  },
+
   eventBar: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#272728',
-    color: '#272728',
-    width: WIDTH * 0.9,
-    height: 37,
+    backgroundColor: '#19191B',
+    color: '#19191B',
+    width: WIDTH,
     borderRadius: 8,
   },
   eventCard: {
     justifyContent: 'space-around',
-    padding: WIDTH * 0.02,
-    backgroundColor: '#272728',
-    color: '#272728',
-    width: WIDTH * 0.6,
-    height: HEIGHT * 0.2,
-    borderTopRightRadius: 8,
-    borderBottomRightRadius: 8,
-  },
-  photoCard: {
-    width: WIDTH * 0.3,
-    height: HEIGHT * 0.2,
+    width: WIDTH,
+    height: HEIGHT * 0.1,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   evenly: {
     justifyContent: 'space-evenly',
   },
-  button: {
+  btnContainer: {
+    width: WIDTH * 0.8,
     borderRadius: 10,
-    paddingHorizontal: 6,
-    paddingVertical: 4,
+    alignItems: 'center',
+    paddingHorizontal: 10,
+    paddingVertical: 15,
     backgroundColor: '#FFFFFF',
   },
-  buttonContainer: {},
+  btnContainer2: {
+    alignSelf: 'center',
+    paddingHorizontal: 10,
+    paddingVertical: 15,
+  },
+  btnContainerGray: {
+    marginHorizontal: WIDTH * 0.025,
+    width: WIDTH * 0.38,
+    alignItems: 'center',
+    alignSelf: 'center',
+    borderRadius: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 15,
+    backgroundColor: '#3E3E3F',
+  },
+  calendarModal: {
+    alignSelf: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    marginTop: HEIGHT * 0.2,
+    width: WIDTH * 0.9,
+    height: HEIGHT * 0.6,
+    backgroundColor: '#272728',
+    borderColor: '#3E3E3F',
+    borderRadius: 20,
+    borderWidth: 1,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
 });
 
 export default App;
